@@ -40,5 +40,5 @@ steps:
     script: |
       docker run -d -p  8080:8080 sample-war-app:latest
       echo '\nHello world\n'
-      sleep 5000
+      sleep 5
       curl localhost:8080/
