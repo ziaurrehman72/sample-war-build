@@ -38,7 +38,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      docker run -d -p  8080:8080 sample-war-app:latest
+      docker run -d -p  8080:8080 ziaurrehmans/sample-war-app:latest
       echo '\nHello world\n'
       sleep 5
       curl localhost:8080/
