@@ -6,12 +6,18 @@
 trigger:
 - master
 
+variables:
+  docker_repo_name: ziaurrehmans/sample-war-app
+  docker_tag:
+     - latest
+     - $(Build.BuildId)
+     
 pool:
   vmImage: ubuntu-latest
 
 steps:
 - task: Maven@3
-  displayName: Build Application
+  displayName: Maven Build
   inputs:
     mavenPomFile: 'pom.xml'
     publishJUnitResults: true
@@ -24,21 +30,20 @@ steps:
 
 
 - task: Docker@2
+  displayName: Buildigng Docker image
   inputs:
     containerRegistry: 'Dockerhub-ServiceConnection'
     repository: 'ziaurrehmans/sample-war-app'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
-    tags: |
-      $(Build.BuildId)
-      latest
+    tags: $(docker_tag)
 
 - task: Bash@3
   displayName: Test and verify the docker image
   inputs:
     targetType: 'inline'
     script: |
-      docker run -d -p  8080:8080 ziaurrehmans/sample-war-app:latest      
-      echo '\nWaiting...\n'
+      docker run -d -p  8080:8080 $(docker_repo_name):latest      
+      echo 'Let it be up...'
       sleep 5
       curl localhost:8080/hello
