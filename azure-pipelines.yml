@@ -45,6 +45,6 @@ steps:
       # Write your commands here
       
       
-      docker run -p -d 8080:8080 war-sample:latest
+      docker run -d -p  8080:8080 war-sample:latest
       echo '\nHello world\n'
       curl localhost:8080/
