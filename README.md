@@ -6,3 +6,9 @@ There is a azure-pipeline.yaml file, which is developed as per AzureDevOps pipel
 
 ## Dockerization
 The war file is dockerized (please refer Dockerfile). 
+
+It can be pulled as follows:
+
+```
+docker pull ziaurrehmans/sample-war-app:latest
+```
