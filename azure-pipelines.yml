@@ -22,11 +22,12 @@ steps:
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
 
+
 - task: Docker@2
-  displayName: Build Docker image
   inputs:
-    repository: 'war-sample'
-    command: 'build'
+    containerRegistry: 'Dockerhub-ServiceConnection'
+    repository: 'sample-war-app'
+    command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
     tags: |
       $(Build.BuildId)
@@ -37,9 +38,6 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      # Write your commands here
-      
-      
-      docker run -d -p  8080:8080 war-sample:latest
+      docker run -d -p  8080:8080 sample-war-app:latest
       echo '\nHello world\n'
       curl localhost:8080/
