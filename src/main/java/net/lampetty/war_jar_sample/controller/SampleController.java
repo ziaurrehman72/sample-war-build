@@ -15,7 +15,7 @@ public class SampleController extends BaseController {
     }
     @RequestMapping(value = "/app", method = RequestMethod.GET)
     @ResponseBody
-    public String index() {
+    public String app() {
         return hello();
     }
 }
