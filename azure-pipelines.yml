@@ -41,4 +41,4 @@ steps:
       docker run -d -p  8080:8080 ziaurrehmans/sample-war-app:latest      
       echo '\nWaiting...\n'
       sleep 5
-      curl localhost:8080/
+      curl localhost:8080/hello
