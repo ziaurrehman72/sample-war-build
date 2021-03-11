@@ -8,6 +8,8 @@ trigger:
 
 variables:
   docker_repo_name: ziaurrehmans/sample-war-app
+  MAVEN_CACHE_FOLDER: $(Pipeline.Workspace)/.m2/repository
+  MAVEN_OPTS: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
   docker_tag: |
        latest
        $(Build.BuildId)
@@ -16,6 +18,17 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- task: Cache@2
+  inputs:
+    key: 'maven | "$(Agent.OS)" | **/pom.xml'
+    restoreKeys: |
+      maven | "$(Agent.OS)"
+      maven
+    path: $(MAVEN_CACHE_FOLDER)
+  displayName: Cache Maven local repo
+
+- script: mvn install -B -e
+
 - task: Maven@3
   displayName: Maven Build
   inputs:
@@ -27,6 +40,7 @@ steps:
     mavenAuthenticateFeed: false
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
+    mavenOptions: '$(MAVEN_OPTS)'
 
 - task: Cache@2
   inputs:
