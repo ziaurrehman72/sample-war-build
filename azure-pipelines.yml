@@ -37,6 +37,7 @@ steps:
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
     tags: $(docker_tag)
+    arguments: '--cache-from=$(docker_repo_name):latest' 
 
 - task: Bash@3
   displayName: Test and verify the docker image
