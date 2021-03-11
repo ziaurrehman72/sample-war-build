@@ -28,6 +28,7 @@ steps:
   displayName: Cache Maven local repo
 
 - script: mvn install -B -e
+  displayName: Installing cached mvn dependencies
 
 - task: Maven@3
   displayName: Maven Build
