@@ -8,9 +8,9 @@ trigger:
 
 variables:
   docker_repo_name: ziaurrehmans/sample-war-app
-  docker_tag:
-     - latest
-     - $(Build.BuildId)
+  docker_tag: |
+       latest
+       $(Build.BuildId)
      
 pool:
   vmImage: ubuntu-latest
