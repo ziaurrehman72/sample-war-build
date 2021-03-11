@@ -18,6 +18,7 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+
 - task: Cache@2
   inputs:
     key: 'maven | "$(Agent.OS)" | **/pom.xml'
@@ -42,7 +43,9 @@ steps:
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
     mavenOptions: '$(MAVEN_OPTS)'
-
+    
+# Docker caching commented to not to degrade the performance of the pipeline.
+#
 # - task: Cache@2
 #   inputs:
 #       key: 'docker | "$(Agent.OS)" | **/Dockerfile'
